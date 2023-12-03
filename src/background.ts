@@ -3,4 +3,3 @@ chrome.runtime.onInstalled.addListener(async () => {
   console.log('url in bgJS', url);
   chrome.tabs.create({ url });
 });
-``;
