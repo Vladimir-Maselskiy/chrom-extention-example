@@ -47,7 +47,7 @@
       },
       "description": "Перемістити вкладку на початок testMode"
     },
-    "move-to-дфые": {
+    "move-to-last": {
       "suggested_key": {
         "default": "Ctrl+Shift+Right",
         "mac": "Command+Shift+Right"

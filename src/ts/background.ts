@@ -11,21 +11,24 @@ chrome.runtime.onInstalled.addListener(async () => {
 });
 
 chrome.commands.onCommand.addListener(command => {
-  chrome.tabs.update({}, async tab => {
-    debugger;
+  debugger;
+  chrome.tabs.query({ active: true, currentWindow: true }, async tabs => {
+    const [activeTab] = tabs;
+    const { id: activeTabId } = activeTab;
+    const allTabs = await chrome.tabs.query({});
+
     switch (command) {
       case 'pin-current-tab':
-        chrome.tabs.update({ pinned: !tab?.pinned });
+        chrome.tabs.update({ pinned: !activeTab?.pinned });
         break;
       case 'copy-current-tab':
-        chrome.tabs.duplicate(tab?.id!);
+        chrome.tabs.duplicate(activeTabId!);
         break;
       case 'move-to-first':
-        chrome.tabs.move(tab?.id!, { index: 0 });
+        chrome.tabs.move(activeTabId!, { index: 0 });
         break;
       case 'move-to-last':
-        const allTabs = await chrome.tabs.query({});
-        chrome.tabs.move(tab?.id!, { index: allTabs.length - 1 });
+        chrome.tabs.move(activeTabId!, { index: allTabs.length - 1 });
         break;
     }
   });

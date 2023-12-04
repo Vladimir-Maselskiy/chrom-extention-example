@@ -3,8 +3,8 @@ const CopyPlugin = require('copy-webpack-plugin');
 module.exports = {
   mode: 'production',
   entry: {
-    background: path.resolve(__dirname, '..', 'src', 'background.ts'),
-    content: path.resolve(__dirname, '..', 'src', 'content.ts'),
+    background: path.resolve(__dirname, '..', 'src', 'ts', 'background.ts'),
+    content: path.resolve(__dirname, '..', 'src', 'ts', 'content.ts'),
   },
   output: {
     path: path.join(__dirname, '../dist'),
@@ -26,7 +26,7 @@ module.exports = {
   plugins: [
     new CopyPlugin({
       patterns: [
-        { from: '.', to: '.', context: 'public' },
+        { from: 'manifest.json', to: '.', context: 'src' },
         { from: 'src/html', to: 'html' },
         { from: 'icons', to: 'icons' },
       ],
