@@ -6,20 +6,23 @@
     "16": "icons/icon-16.png",
     "32": "icons/icon-32.png",
     "48": "icons/icon-48.png",
-    "128": "icons/icon-128.png"
+    "128": "icons/icon-256.png"
   },
   "action": {
     "default_popup": "html/popup.html",
-    "default_icon": "icons/icon-32.png"
+    "default_icon": "icons/icon-256.png"
   },
-  "content_scripts": [{ "js": ["js/content.js"], "matches": ["<all_urls>"] }],
+  "content_scripts": [
+    { "js": ["js/content.js"], "matches": ["https://www.copart.com/lot/*"] }
+  ],
   "permissions": [
     "tabs",
     "activeTab",
     "scripting",
     "storage",
     "alarms",
-    "notifications"
+    "notifications",
+    "webNavigation"
   ],
   "host_permissions": ["<all_urls>"],
   "background": {

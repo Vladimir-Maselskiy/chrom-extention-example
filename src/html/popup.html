@@ -4,8 +4,27 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <style>
+      .redirect-span {
+        text-decoration: underline;
+      }
+      .redirect-span:hover {
+        cursor: pointer;
+      }
+    </style>
   </head>
   <body>
-    <div>Popup Page</div>
+    <div class="matching-content">
+      <div>Окно расширения</div>
+      <span>Ведите информацию</span>
+      <input type="text" class="massage-input" />
+      <button>OK</button>
+    </div>
+    <div class="non-matching-content">
+      Для использовния расширения перейдите на сайт
+      <span class="redirect-span">Copart</span>
+      и выберите лот
+    </div>
   </body>
+  <script src="../js/popup.js"></script>
 </html>
