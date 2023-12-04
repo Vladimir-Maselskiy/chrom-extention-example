@@ -2,8 +2,6 @@ let existingDivRef: HTMLElement | null = null;
 let isFirstUpdate = true;
 let currentLocation = '';
 
-console.log('qweqweqweqweqweqweqweqwe');
-
 const setElementStyles = (element: HTMLElement) => {
   element.style.width = '100%';
   element.style.minHeight = '40px';
@@ -31,11 +29,26 @@ let observer = new MutationObserver(() => {
   if (existingDivRef && isFirstUpdate) {
     isFirstUpdate = false;
     const customDivElement = document.createElement('div');
+    customDivElement.textContent = '';
     setElementStyles(customDivElement);
     existingDivRef.parentNode?.insertBefore(
       customDivElement,
       existingDivRef.nextElementSibling
     );
+
+    const storageChangeListener = () => {
+      customDivElement.textContent = '';
+      chrome.storage.local.get('values', res => {
+        let currentValues = res.values as string[];
+        console.log('currentValues', currentValues);
+        currentValues.forEach(value => {
+          let valueDivRef = document.createElement('div');
+          valueDivRef.textContent = value;
+          customDivElement.appendChild(valueDivRef);
+        });
+      });
+    };
+    chrome.storage.onChanged.addListener(storageChangeListener);
   }
 });
 

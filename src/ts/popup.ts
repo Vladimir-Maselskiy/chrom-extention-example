@@ -2,7 +2,35 @@ import { site } from './const';
 
 const activeCurrentTab = { active: true, currentWindow: true };
 
-document.addEventListener('DOMContentLoaded',  () =>{
+document.addEventListener('DOMContentLoaded', () => {
+  const inputRef = <HTMLInputElement>document.querySelector('.message-input');
+
+  const onClearButtonRefClick = () => {
+    console.log('clearClick');
+    chrome.storage.local.remove('values', function () {
+      console.log('Значение успешно удалено');
+    });
+  };
+
+  const onSubmitButtonRefClick = (e: any) => {
+    const currentValue = inputRef?.value.trim();
+    if (currentValue !== '') {
+      chrome.storage.local.get('values', res => {
+        console.log('resValues', res);
+        const storageValue: string[] = res.values || [];
+        chrome.storage.local.set({
+          values: [...storageValue, currentValue],
+        });
+      });
+    }
+  };
+
+  const submitButtonRef = document.querySelector('.submit-button');
+  const clearStorageButtonRef = document.querySelector('.clear-storage-button');
+
+  submitButtonRef?.addEventListener('click', onSubmitButtonRefClick);
+  clearStorageButtonRef?.addEventListener('click', onClearButtonRefClick);
+
   chrome.tabs.query(activeCurrentTab, function (tabs) {
     let activeTabUrl = tabs[0].url;
     let matchingContentRef = <HTMLElement>(
