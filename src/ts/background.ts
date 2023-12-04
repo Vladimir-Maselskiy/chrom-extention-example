@@ -13,7 +13,6 @@ chrome.runtime.onInstalled.addListener(async () => {
 const setBadgeToIcon = (tabs: chrome.tabs.Tab[]) => {
   const [activeTab] = tabs;
   const { url } = activeTab;
-  console.log('url in onActivated', url);
   if (url!.includes(site)) {
     chrome.action.setBadgeText({ text: 'on' });
   } else {

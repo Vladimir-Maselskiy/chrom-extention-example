@@ -13,7 +13,10 @@
     "default_icon": "icons/icon-256.png"
   },
   "content_scripts": [
-    { "js": ["js/content.js"], "matches": ["https://www.copart.com/lot/*"] }
+    {
+      "js": ["js/content.js"],
+      "matches": ["https://www.copart.com/*"]
+    }
   ],
   "permissions": [
     "tabs",
