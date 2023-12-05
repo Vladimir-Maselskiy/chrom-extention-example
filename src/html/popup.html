@@ -5,11 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
+      body {
+        width: 300px;
+      }
       .redirect-span {
         text-decoration: underline;
       }
       .redirect-span:hover {
         cursor: pointer;
+      }
+      .button-box {
+        display: flex;
+        justify-content: space-between;
+        margin: 10px 0;
+      }
+      .button-box button {
+        width: 40%;
       }
     </style>
   </head>
@@ -18,8 +29,10 @@
       <div>Окно расширения</div>
       <span>Ведите информацию</span>
       <input type="text" class="message-input" />
-      <button class="submit-button">OK</button>
-      <button class="clear-storage-button">Oчистить хранилище</button>
+      <div class="button-box">
+        <button class="submit-button">OK</button>
+        <button class="clear-storage-button">Oчистить хранилище</button>
+      </div>
       <div>
         <button class="co-button">Co*</button>
       </div>

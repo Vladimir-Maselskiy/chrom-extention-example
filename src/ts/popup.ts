@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
         chrome.storage.local.set({
           values: [...storageValue, currentValue],
         });
+        inputRef.value = '';
       });
     }
   };
