@@ -12,7 +12,7 @@ const setElementStyles = (element: HTMLElement) => {
 };
 console.log('Викликано з content script');
 
-// обрабатываем сообщение с попап окна
+// обрабатываем клик по кнопке на задание со *
 chrome.runtime?.onMessage.addListener(async (request, sender, sendResponse) => {
   if (request.action === 'customAction' && customDivElement) {
     const csrfToken = sessionStorage.getItem('csrfToken');
