@@ -14,7 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const onClearButtonRefClick = () => {
-    console.log('clearClick');
     chrome.storage.local.remove('values', function () {
       console.log('Значение успешно удалено');
     });
@@ -24,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentValue = inputRef?.value.trim();
     if (currentValue !== '') {
       chrome.storage.local.get('values', res => {
-        console.log('resValues', res);
         const storageValue: string[] = res.values || [];
         chrome.storage.local.set({
           values: [...storageValue, currentValue],
@@ -60,9 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       //  фунционал для условия: если url не сооствествует,юзер может сделать редирект на таргет сайт
       let redirectSpan = <HTMLElement>document.querySelector('.redirect-span');
-      console.log('redirectSpan', redirectSpan);
       redirectSpan.addEventListener('click', () => {
-        console.log('click');
         chrome.tabs.query(activeCurrentTab, function (tabs) {
           chrome.tabs.update(tabs[0].id!, { url: site });
           window.close();

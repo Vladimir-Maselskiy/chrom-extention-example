@@ -10,7 +10,6 @@ const setElementStyles = (element: HTMLElement) => {
   element.style.margin = '10px 0';
   element.style.borderRadius = '4px';
 };
-console.log('Викликано з content script');
 
 // обрабатываем клик по кнопке на задание со *
 chrome.runtime?.onMessage.addListener(async (request, sender, sendResponse) => {
@@ -51,7 +50,6 @@ let observer = new MutationObserver(() => {
       customDivElement!.textContent = '';
       chrome.storage.local.get('values', res => {
         let currentValues = res.values as string[];
-        console.log('currentValues', currentValues);
         currentValues?.forEach(value => {
           let valueDivRef = document.createElement('div');
           valueDivRef.textContent = value;
