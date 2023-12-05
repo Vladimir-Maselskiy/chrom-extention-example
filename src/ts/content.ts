@@ -16,7 +16,7 @@ console.log('Викликано з content script');
 chrome.runtime?.onMessage.addListener(async (request, sender, sendResponse) => {
   if (request.action === 'customAction' && customDivElement) {
     const csrfToken = sessionStorage.getItem('csrfToken');
-    if (customDivElement) customDivElement.textContent = csrfToken;
+    if (customDivElement && csrfToken) customDivElement.textContent = csrfToken;
   }
 });
 
