@@ -10,7 +10,7 @@
     "outDir": "dist/js",
     "noEmitOnError": true,
     "moduleDetection": "force",
-    "typeRoots": ["node_modules/@types"]
+    "typeRoots": ["node_modules/@types", "./src/types/index.d.ts"]
   },
   "exclude": ["node_modules"]
 }

@@ -16,6 +16,12 @@
     {
       "js": ["js/content.js"],
       "matches": ["https://www.copart.com/*"]
+    },
+    {
+      "js": ["js/getAppTkn.js"],
+      "matches": ["https://www.copart.com/*"],
+      "run_at": "document_end",
+      "world": "MAIN"
     }
   ],
   "permissions": [

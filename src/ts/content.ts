@@ -1,4 +1,5 @@
 let existingDivRef: HTMLElement | null = null;
+let customDivElement: HTMLElement | null = null;
 let isFirstUpdate = true;
 let currentLocation = '';
 
@@ -9,9 +10,18 @@ const setElementStyles = (element: HTMLElement) => {
   element.style.margin = '10px 0';
   element.style.borderRadius = '4px';
 };
+console.log('Викликано з content script');
+
+// обрабатываем сообщение с попап окна
+chrome.runtime?.onMessage.addListener(async (request, sender, sendResponse) => {
+  if (request.action === 'customAction' && customDivElement) {
+    const csrfToken = sessionStorage.getItem('csrfToken');
+    if (customDivElement) customDivElement.textContent = csrfToken;
+  }
+});
 
 let observer = new MutationObserver(() => {
-  // если изменился url сбрасываем значения флага и ссылки на место вставки
+  // если изменился url сбрасываем значения флага и ссылку на место вставки
   if (currentLocation !== window.location.href) {
     currentLocation = window.location.href;
     isFirstUpdate = true;
@@ -25,10 +35,10 @@ let observer = new MutationObserver(() => {
     );
   }
 
-  //   если есть место вставки и вставка не была езе произведена, то вставляем кастомный блок на сайт
+  //   если есть место вставки и вставка не была еще произведена, то вставляем кастомный блок на сайт
   if (existingDivRef && isFirstUpdate) {
     isFirstUpdate = false;
-    const customDivElement = document.createElement('div');
+    customDivElement = document.createElement('div');
     customDivElement.textContent = '';
     setElementStyles(customDivElement);
     existingDivRef.parentNode?.insertBefore(
@@ -36,15 +46,16 @@ let observer = new MutationObserver(() => {
       existingDivRef.nextElementSibling
     );
 
+    // функция проверки стореджа на наличие ранее введенных даных и рендера контента
     const storageChangeListener = () => {
-      customDivElement.textContent = '';
+      customDivElement!.textContent = '';
       chrome.storage.local.get('values', res => {
         let currentValues = res.values as string[];
         console.log('currentValues', currentValues);
-        currentValues.forEach(value => {
+        currentValues?.forEach(value => {
           let valueDivRef = document.createElement('div');
           valueDivRef.textContent = value;
-          customDivElement.appendChild(valueDivRef);
+          customDivElement!.appendChild(valueDivRef);
         });
       });
     };

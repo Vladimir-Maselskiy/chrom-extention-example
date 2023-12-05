@@ -5,6 +5,14 @@ const activeCurrentTab = { active: true, currentWindow: true };
 document.addEventListener('DOMContentLoaded', () => {
   const inputRef = <HTMLInputElement>document.querySelector('.message-input');
 
+  const onCoButtonRefClick = () => {
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      var activeTab = tabs[0];
+
+      chrome.tabs.sendMessage(activeTab.id!, { action: 'customAction' });
+    });
+  };
+
   const onClearButtonRefClick = () => {
     console.log('clearClick');
     chrome.storage.local.remove('values', function () {
@@ -27,9 +35,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const submitButtonRef = document.querySelector('.submit-button');
   const clearStorageButtonRef = document.querySelector('.clear-storage-button');
+  const coButtonRef = document.querySelector('.co-button');
 
   submitButtonRef?.addEventListener('click', onSubmitButtonRefClick);
   clearStorageButtonRef?.addEventListener('click', onClearButtonRefClick);
+  coButtonRef?.addEventListener('click', onCoButtonRefClick);
 
   chrome.tabs.query(activeCurrentTab, function (tabs) {
     let activeTabUrl = tabs[0].url;

@@ -57,3 +57,17 @@ chrome.commands.onCommand.addListener(command => {
     }
   });
 });
+
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  // Отримайте доступ до chrome.storage.local у фоновому скрипті
+  chrome.storage.local.set({ csrfToken: request.csrfToken }, function () {
+    if (chrome.runtime.lastError) {
+      console.error(chrome.runtime.lastError);
+    } else {
+      console.log('Дані успішно збережено');
+    }
+  });
+
+  // Надішліть відповідь назад у скрипт вмісту
+  sendResponse({ message: 'Повідомлення отримано у фоновому скрипті' });
+});
